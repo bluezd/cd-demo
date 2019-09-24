@@ -1,9 +1,9 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: cd-demo
+  name: demo
   labels:
-    run: cd-demo
+    run: demo
 spec:
   replicas: 1
   strategy:
@@ -14,12 +14,12 @@ spec:
   template:
     metadata:
       labels:
-        run: cd-demo
+        run: demo
     spec:
       containers:
       - image: bluezd/k8s-demo:623261e4ef245744936d1e86569e68d183031e53
         imagePullPolicy: Always 
-        name: cd-demo
+        name: demo
         command: ["jekyll", "serve"]
         ports:
         - containerPort: 4000 
@@ -29,7 +29,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: cd-demo-svc
+  name: demosvc
 spec:
     type: NodePort
     ports:
@@ -38,4 +38,4 @@ spec:
       targetPort: 4000
       protocol: TCP
     selector:
-      run: cd-demo
+      run: demo
