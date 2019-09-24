@@ -12,7 +12,7 @@ spec:
         run: demo
     spec:
       containers:
-      - image: bluezd/k8s-demo:623261e4ef245744936d1e86569e68d183031e53
+      - image: bluezd/mke-demo:$BUILD_NUMBER
         imagePullPolicy: Always 
         name: demo
         command: ["jekyll", "serve"]
