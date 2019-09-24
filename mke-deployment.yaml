@@ -17,7 +17,7 @@ spec:
         run: cd-demo
     spec:
       containers:
-      - image: bluezd/${JOB_NAME}:$GIT_COMMIT
+      - image: bluezd/k8s-demo:623261e4ef245744936d1e86569e68d183031e53
         imagePullPolicy: Always 
         name: cd-demo
         command: ["jekyll", "serve"]
