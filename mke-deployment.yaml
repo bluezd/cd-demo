@@ -1,0 +1,41 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: cd-demo
+  labels:
+    run: cd-demo
+spec:
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        run: cd-demo
+    spec:
+      containers:
+      - image: bluezd/${JOB_NAME}:$GIT_COMMIT
+        imagePullPolicy: Always 
+        name: cd-demo
+        command: ["jekyll", "serve"]
+        ports:
+        - containerPort: 4000 
+          protocol: TCP
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cd-demo-svc
+spec:
+    type: NodePort
+    ports:
+    - name: http
+      port: 4000
+      targetPort: 4000
+      protocol: TCP
+    selector:
+      run: cd-demo
